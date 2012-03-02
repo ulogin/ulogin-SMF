@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>uLogin</id>
+	<type>modification</type>
+	<version>1.1</version>
+	<name>Авторизация через сервис uLogin.ru</name>
+	<install>
+		<readme>readme.txt</readme>
+		<database>db.php</database>
+		<modification>modification.xml</modification>
+		<require-file name="ulogin.php" destination="$sourcedir" />
+		<require-file name="class_ulogin.php" destination="$sourcedir" />
+		<require-file name="class_JSON.php" destination="$sourcedir" />
+	</install>
+	<uninstall>
+		<modification reverse="true">modification.xml</modification>
+		<remove-file name="$sourcedir/ulogin.php" />
+		<remove-file name="$sourcedir/class_ulogin.php" />
+		<remove-file name="$sourcedir/class_JSON.php" />
+	</uninstall>
+</package-info>

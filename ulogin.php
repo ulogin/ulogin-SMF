@@ -15,7 +15,7 @@ if (!defined('SMF'))
 
 define('ULOGIN_URL', urlencode(__redirect_url()));
 define('ULOGIN_SHOWN', 'vkontakte,odnoklassniki,mailru,facebook'); /* Сервисы, выводимые сразу */
-define('ULOGIN_HIDDEN', 'twitter,google,yandex,livejournal,openid'); /* Сервисы, выводимые при наведении */
+define('ULOGIN_HIDDEN', 'other'); /* Сервисы, выводимые при наведении */
 /* полный список сервисов по адрес: http://ulogin.ru/ */
 /**
  * Generate redirect url

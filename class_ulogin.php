@@ -74,7 +74,7 @@ class uLogin
 		}
 		else if ($this->user['first_name'] && $this->user['last_name'])
 		{
-			$name = $this->user['last_name'] . '_' . $this->user['first_name'];
+			$name = $this->user['first_name'] . '_' . $this->user['last_name'];
 		}
 		else if ($this->user['first_name'])
 		{

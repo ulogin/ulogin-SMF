@@ -297,7 +297,7 @@ class uLogin
 		
 		require_once($sourcedir . '/Subs-Members.php');
 		
-		$username = substr($this->__fetch_random_name(), 0, 25);
+		$username = substr($this->__fetch_random_name(), 0, 80);
 		$password = $this->__random(15);
 		$register = array(
 			'username' => $username,
@@ -337,4 +337,4 @@ class uLogin
 	}
 }
 
-?>
+?>

@@ -306,7 +306,7 @@ class uLogin
 			'password_check' => $password,
 			'interface' => 'guest',
 			'extra_register_vars' => array(
-				'real_name' => $username,
+				'real_name' => str_replace('_', ' ', $username),
 				'hide_email' => 1,
 			),
 			'require' => 'nothing',

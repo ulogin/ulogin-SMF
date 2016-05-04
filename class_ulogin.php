@@ -74,7 +74,7 @@ class uLogin
 		}
 		else if ($this->user['first_name'] && $this->user['last_name'])
 		{
-			$name = $this->user['last_name'] . '_' . $this->user['first_name'];
+			$name = $this->user['first_name'] . '_' . $this->user['last_name'];
 		}
 		else if ($this->user['first_name'])
 		{
@@ -297,7 +297,7 @@ class uLogin
 		
 		require_once($sourcedir . '/Subs-Members.php');
 		
-		$username = substr($this->__fetch_random_name(), 0, 25);
+		$username = substr($this->__fetch_random_name(), 0, 80);
 		$password = $this->__random(15);
 		$register = array(
 			'username' => $username,
@@ -306,7 +306,7 @@ class uLogin
 			'password_check' => $password,
 			'interface' => 'guest',
 			'extra_register_vars' => array(
-				'real_name' => $username,
+				'real_name' => str_replace('_', ' ', $username),
 				'hide_email' => 1,
 			),
 			'require' => 'nothing',
@@ -337,4 +337,4 @@ class uLogin
 	}
 }
 
-?>
+?>

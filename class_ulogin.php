@@ -312,7 +312,6 @@ class uLogin
 			'require' => 'nothing',
 			'check_password_strength' => false,
 		);
-		var_dump($register);
 		
 		if ($this->user['bdate'])
 		{

@@ -1,9 +1,9 @@
 === uLogin - виджет авторизации через социальные сети ===
 Donate link: http://ulogin.ru/
 Tags: ulogin, login, social, authorization
-Requires at least: 2.0
-Tested up to: 2.0.2
-Stable tag: 1.1
+Requires at least: 2.1
+Tested up to: 2.1
+Stable tag: 1.2
 License: GPL3
 Форма авторизации uLogin через социальные сети. Улучшенный аналог loginza.
 

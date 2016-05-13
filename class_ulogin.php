@@ -270,7 +270,7 @@ class uLogin
 		{
 			return false;
 		}
-		
+
 		if (!$member = $this->__get_first("SELECT * FROM {db_prefix}members WHERE id_member = " . $user['userid']))
 		{
 			$this->db['db_query']('', "DELETE FROM {db_prefix}ulogin WHERE identity = '" . mysql_escape_string($this->user['identity']) . "'", array());
@@ -306,8 +306,7 @@ class uLogin
 			'password_check' => $password,
 			'interface' => 'guest',
 			'extra_register_vars' => array(
-				'real_name' => str_replace('_', ' ', $username),
-				'hide_email' => 1,
+				'real_name' => str_replace('_', ' ', $username)
 			),
 			'require' => 'nothing',
 			'check_password_strength' => false,
@@ -318,13 +317,8 @@ class uLogin
 			$register['extra_register_vars']['birthdate'] = date('Y-m-d', strtotime($this->user['bdate']));
 		}
 		
-		if ($this->__fetch_user_from())
-		{
-			$register['extra_register_vars']['location'] = $this->__fetch_user_from();
-		}
-		
 		$modSettings['disableRegisterCheck'] = true;
-		
+
 		if ($user_id = registerMember($register))
 		{
 			$this->__upload_avatar($user_id);
@@ -336,4 +330,3 @@ class uLogin
 	}
 }
 
-?>

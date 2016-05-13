@@ -6,12 +6,25 @@
 	<version>1.1</version>
 	<file name="$themedir/index.template.php">
 		<operation>
-			<search position="before"><![CDATA[<div class="info">', $txt['quick_login_dec'], '</div>';]]></search>
+			<search position="replace"><![CDATA[
+	else
+	echo '
+		<ul class="floatleft welcome">
+			<li>', sprintf($txt[$context['can_register'] ? 'welcome_guest_register' : 'welcome_guest'], $txt['guest_title'], $context['forum_name_html_safe'], $scripturl . '?action=login', 'return reqOverlayDiv(this.href, ' . JavaScriptEscape($txt['login']) . ');', $scripturl . '?action=signup'), '</li>
+		</ul>';
+			]]></search>
 			<add><![CDATA[
+	else {
+		echo '
+			<ul class="floatleft welcome">
+				<li>', sprintf($txt[$context['can_register'] ? 'welcome_guest_register' : 'welcome_guest'], $txt['guest_title'], $context['forum_name_html_safe'], $scripturl . '?action=login', 'return reqOverlayDiv(this.href, ' . JavaScriptEscape($txt['login']) . ');', $scripturl . '?action=signup'), '</li>
+			</ul>';
+
 		global $sourcedir;
 		require_once($sourcedir . '/ulogin.php');
-		
+
 		echo '<script src="http://ulogin.ru/js/ulogin.js"></script><div id="uLogin" x-ulogin-params="display=small&fields=first_name,last_name,photo,email&optional=bdate,county,city&providers=' . ULOGIN_SHOWN . '&hidden=' . ULOGIN_HIDDEN . '&redirect_uri=' . ULOGIN_URL . '"></div>';
+	}
 ]]></add>
 		</operation>
 	</file>

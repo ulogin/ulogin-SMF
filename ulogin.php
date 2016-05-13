@@ -47,11 +47,9 @@ function ulogin()
 	
 	if (!$user_settings)
 	{
-		redirectexit('?');
+		redirectexit('');
 	}
 	
-	setLoginCookie(60 * $modSettings['cookieTime'], $user_settings['id_member'], sha1($user_settings['passwd'] . $user_settings['password_salt']));
-	redirectexit('?');
+	setLoginCookie(60 * $modSettings['cookieTime'], $user_settings['id_member'], hash_salt($user_settings['passwd'] . $user_settings['password_salt']));
+	redirectexit('');
 }
-
-?>

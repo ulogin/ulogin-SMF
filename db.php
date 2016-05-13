@@ -16,4 +16,3 @@ $smcFunc['db_query']('', 'CREATE TABLE IF NOT EXISTS {db_prefix}ulogin (
 ) ENGINE=MyISAM', array()
 );
 
-?>

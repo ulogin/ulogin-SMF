@@ -11,7 +11,7 @@
 		global $sourcedir;
 		require_once($sourcedir . '/ulogin.php');
 		
-		echo '<script src="http://ulogin.ru/js/ulogin.js"></script><div id="uLogin" x-ulogin-params="display=small&fields=first_name,last_name,photo,email&optional=bdate,county,city&providers=' . ULOGIN_SHOWN . '&hidden=' . ULOGIN_HIDDEN . '&redirect_uri=' . ULOGIN_URL . '"></div>';
+		echo '<script src="//ulogin.ru/js/ulogin.js"></script><div id="uLogin" x-ulogin-params="display=small&fields=first_name,last_name,photo,email&optional=bdate,county,city&providers=' . ULOGIN_SHOWN . '&hidden=' . ULOGIN_HIDDEN . '&redirect_uri=' . ULOGIN_URL . '"></div>';
 ]]></add>
 		</operation>
 	</file>

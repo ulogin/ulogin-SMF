@@ -4,7 +4,7 @@
  * Auth via uLogin.ru
  * @package SMF
  * @subpackage uLogin Package
- * @author uLogin team@ulogin.ru http://ulogin.ru/ 
+ * @author uLogin team@ulogin.ru https://ulogin.ru/
  * @license GPL3 
  */
 

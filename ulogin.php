@@ -4,7 +4,7 @@
  * Auth via uLogin.ru
  * @package SMF
  * @subpackage uLogin Package
- * @author uLogin team@ulogin.ru http://ulogin.ru/ 
+ * @author uLogin team@ulogin.ru https://ulogin.ru/
  * @license GPL3 
  */
 
@@ -16,7 +16,7 @@ if (!defined('SMF'))
 define('ULOGIN_URL', urlencode(__redirect_url()));
 define('ULOGIN_SHOWN', 'vkontakte,odnoklassniki,mailru,facebook'); /* Сервисы, выводимые сразу */
 define('ULOGIN_HIDDEN', 'other'); /* Сервисы, выводимые при наведении */
-/* полный список сервисов по адрес: http://ulogin.ru/ */
+/* полный список сервисов по адрес: https://ulogin.ru/ */
 /**
  * Generate redirect url
  * 

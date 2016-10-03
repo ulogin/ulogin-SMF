@@ -4,7 +4,7 @@
  * Auth via uLogin.ru
  * @package SMF
  * @subpackage uLogin Package
- * @author uLogin team@ulogin.ru http://ulogin.ru/ 
+ * @author uLogin team@ulogin.ru https://ulogin.ru/
  * @license GPL3 
  */
 
@@ -161,7 +161,7 @@ class uLogin
 		
 		if ($this->token)
 		{
-			$info = file_get_contents('http://ulogin.ru/token.php?token=' . $this->token . '&host=' . $_SERVER['HTTP_HOST']);
+			$info = file_get_contents('https://ulogin.ru/token.php?token=' . $this->token . '&host=' . $_SERVER['HTTP_HOST']);
 			
 			if (function_exists('json_decode'))
 			{

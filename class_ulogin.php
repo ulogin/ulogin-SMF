@@ -42,7 +42,7 @@ class uLogin
 	{
 		if (!$random && $this->user['email'])
 		{
-			if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE email_address = '" . mysql_escape_string($this->user['email']) . "'"))
+			if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE email_address = {string:email_address}", array('email_address' => $this->user['email'])))
 			{
 				return $this->__fetch_random_email(true);
 			}
@@ -89,7 +89,7 @@ class uLogin
 			$name = 'uLogin' . $this->__random(5);
 		}
 		
-		if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE member_name = '" . mysql_escape_string($name) . "'"))
+		if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE member_name = {string:member_name} OR  real_name = {string:member_name}", array('member_name' => $name)))
 		{
 			return $this->__fetch_random_name($name, ($level + 1));
 		}
@@ -109,11 +109,11 @@ class uLogin
 		{
 			return ucfirst(strtolower($this->user['country'])) . ', ' . ucfirst(strtolower($this->user['city']));
 		}
-		else if ($this->user['country'])
+		else if (!empty($this->user['country']))
 		{
 			return ucfirst(strtolower($this->user['country']));
 		}
-		else if ($this->user['city'])
+		else if (!empty($this->user['city']))
 		{
 			return ucfirst(strtolower($this->user['city']));
 		}
@@ -128,14 +128,14 @@ class uLogin
 	 * @param	string		$query		query to database
 	 * @return 	array				return db row
 	 */
-	private function __get_first($query = '')
+	private function __get_first($query = '', $params = array())
 	{
 		if (!$query)
 		{
 			return false;
 		}
 		
-		$result = $this->db['db_query']('', $query, array());
+		$result = $this->db['db_query']('', $query, $params);
 		$row = $this->db['db_fetch_assoc']($result);
 		
 		if ($row)
@@ -193,7 +193,7 @@ class uLogin
 		
 		for ($i = 0; $i < $length; $i++)
 		{
-			$random += chr(rand(48, 57));
+			$random .= chr(rand(48, 57));
 		}
 		
 		return $random;
@@ -266,14 +266,14 @@ class uLogin
 			return false;
 		}
 		
-		if (!$user = $this->__get_first("SELECT * FROM {db_prefix}ulogin WHERE identity = '" . mysql_escape_string($this->user['identity']) . "'"))
+		if (!$user = $this->__get_first("SELECT * FROM {db_prefix}ulogin WHERE identity = {string:identity}", array('identity' => $this->user['identity'])))
 		{
 			return false;
 		}
 		
 		if (!$member = $this->__get_first("SELECT * FROM {db_prefix}members WHERE id_member = " . $user['userid']))
-		{
-			$this->db['db_query']('', "DELETE FROM {db_prefix}ulogin WHERE identity = '" . mysql_escape_string($this->user['identity']) . "'", array());
+		{			
+			$this->db['db_query']('', "DELETE FROM {db_prefix}ulogin WHERE identity = {string:identity}", array('identity' => $this->user['identity']));
 		
 			return false;
 		}
@@ -313,7 +313,7 @@ class uLogin
 			'check_password_strength' => false,
 		);
 		
-		if ($this->user['bdate'])
+		if (!empty($this->user['bdate']))
 		{
 			$register['extra_register_vars']['birthdate'] = date('Y-m-d', strtotime($this->user['bdate']));
 		}
@@ -328,7 +328,9 @@ class uLogin
 		if ($user_id = registerMember($register))
 		{
 			$this->__upload_avatar($user_id);
-			$this->db['db_query']('', "INSERT INTO {db_prefix}ulogin VALUES (NULL, " . $user_id . ", '" . mysql_escape_string($this->user['identity']) . "')", array());
+			
+			$this->db['db_query']('', "INSERT INTO {db_prefix}ulogin VALUES (NULL, {int:user_id}, {string:identity})", array('user_id' => $user_id, 'identity' => $this->user['identity']));
+			
 			return true;
 		}
 		
@@ -336,4 +338,3 @@ class uLogin
 	}
 }
 
-?>

@@ -8,7 +8,8 @@
  * @license GPL3 
  */
 
-require_once($sourcedir . '/class_JSON.php'); 
+global $sourcedir;
+require_once($sourcedir . '/class_JSON.php');
 
 class uLogin
 {
@@ -40,9 +41,10 @@ class uLogin
 	 */
 	private function __fetch_random_email($random = false)
 	{
+		global $smcFunc;
 		if (!$random && $this->user['email'])
 		{
-			if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE email_address = '" . mysql_escape_string($this->user['email']) . "'"))
+			if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE email_address = '" . $smcFunc['db_escape_string'] ($this->user['email']) . "'"))
 			{
 				return $this->__fetch_random_email(true);
 			}
@@ -63,6 +65,8 @@ class uLogin
 	 */
 	private function __fetch_random_name($name = '', $level = 0)
 	{
+		global $smcFunc;
+
 		if ($level == $this->max_level)
 		{
 			return '';
@@ -89,7 +93,7 @@ class uLogin
 			$name = 'uLogin' . $this->__random(5);
 		}
 		
-		if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE member_name = '" . mysql_escape_string($name) . "'"))
+		if ($user = $this->__get_first("SELECT * FROM {db_prefix}members WHERE member_name = '" . $smcFunc['db_escape_string'] ($name) . "'"))
 		{
 			return $this->__fetch_random_name($name, ($level + 1));
 		}
@@ -126,7 +130,7 @@ class uLogin
 	 * 
 	 * @access 	private
 	 * @param	string		$query		query to database
-	 * @return 	array				return db row
+	 * @return 	array|bool				return db row
 	 */
 	private function __get_first($query = '')
 	{
@@ -193,7 +197,7 @@ class uLogin
 		
 		for ($i = 0; $i < $length; $i++)
 		{
-			$random += chr(rand(48, 57));
+			$random .= chr(rand(48, 57));
 		}
 		
 		return $random;
@@ -261,19 +265,21 @@ class uLogin
 	 */
 	public function auth()
 	{
+		global $smcFunc;
+
 		if (!$this->user)
 		{
 			return false;
 		}
 		
-		if (!$user = $this->__get_first("SELECT * FROM {db_prefix}ulogin WHERE identity = '" . mysql_escape_string($this->user['identity']) . "'"))
+		if (!$user = $this->__get_first("SELECT * FROM {db_prefix}ulogin WHERE identity = '" . $smcFunc['db_escape_string'] ($this->user['identity']) . "'"))
 		{
 			return false;
 		}
 		
 		if (!$member = $this->__get_first("SELECT * FROM {db_prefix}members WHERE id_member = " . $user['userid']))
 		{
-			$this->db['db_query']('', "DELETE FROM {db_prefix}ulogin WHERE identity = '" . mysql_escape_string($this->user['identity']) . "'", array());
+			$this->db['db_query']('', "DELETE FROM {db_prefix}ulogin WHERE identity = '" . $smcFunc['db_escape_string'] ($this->user['identity']) . "'", array());
 		
 			return false;
 		}
@@ -288,7 +294,7 @@ class uLogin
 	 */
 	public function register()
 	{
-		global $modSettings, $sourcedir;
+		global $modSettings, $sourcedir, $smcFunc;
 		
 		if (isset($this->user['error']) || !$this->token || !$this->user)
 		{
@@ -328,7 +334,7 @@ class uLogin
 		if ($user_id = registerMember($register))
 		{
 			$this->__upload_avatar($user_id);
-			$this->db['db_query']('', "INSERT INTO {db_prefix}ulogin VALUES (NULL, " . $user_id . ", '" . mysql_escape_string($this->user['identity']) . "')", array());
+			$this->db['db_query']('', "INSERT INTO {db_prefix}ulogin VALUES (NULL, " . $user_id . ", '" . $smcFunc['db_escape_string'] ($this->user['identity']) . "')", array());
 			return true;
 		}
 		
